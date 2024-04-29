@@ -129,4 +129,4 @@ out
 .pnp.*
 
 #webpack
-dist/main.js
+webpack/task_0/dist/main.js
