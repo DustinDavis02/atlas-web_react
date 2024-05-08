@@ -1,0 +1,64 @@
+.notifications-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.menuItem {
+    text-align: right;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 10px;
+    color: black;
+    display: block;
+}
+
+.Notifications {
+    border: 2px solid black;
+    padding: 10px;
+    background-color: #fff;
+    width: 350px;
+    text-align: left;
+}
+
+.Notifications.show {
+    display: block;
+}
+
+.Notifications li {
+    list-style-type: none;
+    position: relative;
+    padding-left: 20px;
+}
+
+li[data-priority="default"] {
+    color: blue;
+}
+
+li[data-priority="default"]::before {
+    content: '•';
+    color: inherit;
+    position: absolute;
+    left: 0;
+}
+
+li[data-priority="urgent"] {
+    color: red;
+}
+
+li[data-priority="urgent"]::before {
+    content: '•';
+    color: inherit;
+    position: absolute;
+    left: 0;
+}
+
+.Notifications li span {
+    color: inherit;
+}

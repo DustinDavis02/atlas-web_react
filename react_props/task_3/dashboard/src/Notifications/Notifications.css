@@ -1,0 +1,22 @@
+.Notifications {
+    border: 2px solid black;
+    padding: 10px;
+    margin: 15px;
+    position: relative;
+}
+
+.Notifications li {
+    list-style-type: none;
+}
+
+li[data-priority="default"] {
+    color: blue;
+}
+
+li[data-priority="urgent"] {
+    color: red;
+}
+
+.Notifications li span {
+    color: inherit;
+}
