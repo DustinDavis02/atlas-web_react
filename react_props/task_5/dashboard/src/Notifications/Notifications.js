@@ -4,7 +4,7 @@ import './Notifications.css';
 import NotificationItem from './NotificationItem';
 import NotificationItemShape from './NotificationItemShape';
 
-function Notifications({ listNotifications }) {
+function Notifications({ listNotifications = [] }) {
   const [displayDrawer, setDisplayDrawer] = useState(false);
   const toggleDisplayDrawer = () => setDisplayDrawer(!displayDrawer);
 
@@ -36,10 +36,6 @@ function Notifications({ listNotifications }) {
 
 Notifications.propTypes = {
   listNotifications: PropTypes.arrayOf(NotificationItemShape)
-};
-
-Notifications.defaultProps = {
-  listNotifications: []
 };
 
 export default Notifications;
