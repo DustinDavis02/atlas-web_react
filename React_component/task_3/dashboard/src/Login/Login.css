@@ -1,0 +1,36 @@
+.login-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #f4f4f4;
+    padding: 34px;
+    width: 100%;
+  }
+  
+  .login-body input[type="email"], .login-body input[type="password"], .login-body button {
+    width: 30%;
+    margin: 8px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .login-body label {
+    width: 30%;
+    text-align: left;
+    margin-top: 10px;
+  }
+  
+  .login-body button {
+    cursor: pointer;
+    background-color: #999797;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .login-body button:hover {
+    background-color: #45a050;
+  }
