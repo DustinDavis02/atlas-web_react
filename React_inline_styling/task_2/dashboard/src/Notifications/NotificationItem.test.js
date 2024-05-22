@@ -1,8 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { StyleSheetTestUtils } from 'aphrodite';
 import NotificationItem from './NotificationItem';
 
 describe('NotificationItem', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('renders without crashing', () => {
     shallow(<NotificationItem type="default" value="test" id={1} markAsRead={jest.fn()} />);
   });

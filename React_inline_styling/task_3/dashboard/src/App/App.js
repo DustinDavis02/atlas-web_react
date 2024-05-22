@@ -7,7 +7,20 @@ import Notifications from '../Notifications/Notifications';
 import CourseList from '../CourseList/CourseList';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import BodySection from '../BodySection/BodySection';
-import './App.css';
+import { StyleSheet, css } from 'aphrodite';
+
+const styles = StyleSheet.create({
+  app: {
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    width: '100%',
+    overflowX: 'hidden',
+  },
+});
 
 class App extends React.Component {
   constructor(props) {
@@ -52,7 +65,7 @@ class App extends React.Component {
   render() {
     const { isLoggedIn, listCourses, listNotifications } = this.state;
     return (
-      <div className="App">
+      <div className={css(styles.app)}>
         <Notifications listNotifications={listNotifications} />
         <Header />
         {isLoggedIn ? (

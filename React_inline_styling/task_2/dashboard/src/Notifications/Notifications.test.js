@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { StyleSheetTestUtils } from 'aphrodite';
 import Notifications from './Notifications';
 import NotificationItem from './NotificationItem';
 
@@ -8,10 +9,12 @@ describe('Notifications', () => {
   const mockMarkAsRead = jest.fn();
 
   beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
     wrapper = mount(<Notifications />);
   });
 
   afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
     jest.clearAllMocks();
   });
 
@@ -69,5 +72,4 @@ describe('Notifications', () => {
     const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications: newNotifications }, wrapper.state());
     expect(shouldUpdate).toBe(true);
   });
-
 });

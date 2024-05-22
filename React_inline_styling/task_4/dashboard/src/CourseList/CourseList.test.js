@@ -1,22 +1,31 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { StyleSheetTestUtils } from 'aphrodite';
 import CourseList from './CourseList';
 import CourseListRow from './CourseListRow';
 
 describe('CourseList', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('renders without crashing', () => {
     mount(<CourseList />);
   });
 
   it('renders no courses available message when listCourses is empty', () => {
     const wrapper = mount(<CourseList listCourses={[]} />);
-    expect(wrapper.find(CourseListRow).length).toBe(3);  
+    expect(wrapper.find(CourseListRow).length).toBe(3);
     expect(wrapper.text()).toContain("No course available yet");
   });
-  
+
   it('renders correctly if listCourses property is not passed', () => {
     const wrapper = mount(<CourseList />);
-    expect(wrapper.find(CourseListRow).length).toBe(3);  
+    expect(wrapper.find(CourseListRow).length).toBe(3);
     expect(wrapper.text()).toContain("No course available yet");
   });
 

@@ -1,8 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { StyleSheetTestUtils } from 'aphrodite';
 import Header from './Header';
 
 describe('Header', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('renders without crashing', () => {
     shallow(<Header />);
   });
@@ -13,4 +22,3 @@ describe('Header', () => {
     expect(wrapper.find('h1').text()).toEqual('School dashboard');
   });
 });
-

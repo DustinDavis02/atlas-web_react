@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { StyleSheetTestUtils } from 'aphrodite';
 import App from './App';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -12,12 +13,14 @@ describe('App', () => {
   let alertMock;
 
   beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
     mockLogOut = jest.fn();
     alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
     wrapper = mount(<App logOut={mockLogOut} />);
   });
 
   afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
     alertMock.mockRestore();
   });
 
