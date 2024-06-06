@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import { connect } from 'react-redux';
 import NotificationItem from './NotificationItem';
-import NotificationItemShape from './NotificationItemShape';
+import { connect } from 'react-redux';
 import { fetchNotifications } from '../actions/notificationActionCreators';
 
 const opacityChange = {
@@ -98,17 +97,17 @@ class Notifications extends PureComponent {
             </button>
             <p>Here is the list of notifications</p>
             <ul className={css(styles.ul)}>
-              {listNotifications.length === 0 ? (
+              {listNotifications.size === 0 ? (
                 <p>No new notification for now</p>
               ) : (
-                listNotifications.map(notification => (
+                listNotifications.valueSeq().map(notification => (
                   <NotificationItem
-                    key={notification.id}
-                    type={notification.type}
-                    value={notification.value}
-                    html={notification.html}
-                    markAsRead={() => markNotificationAsRead(notification.id)}
-                    id={notification.id}
+                    key={notification.get('id')}
+                    type={notification.get('type')}
+                    value={notification.get('value')}
+                    html={notification.get('html')}
+                    markAsRead={() => markNotificationAsRead(notification.get('id'))}
+                    id={notification.get('id')}
                   />
                 ))
               )}
@@ -121,7 +120,7 @@ class Notifications extends PureComponent {
 }
 
 Notifications.propTypes = {
-  listNotifications: PropTypes.arrayOf(NotificationItemShape),
+  listNotifications: PropTypes.object.isRequired,
   displayDrawer: PropTypes.bool,
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,
@@ -130,7 +129,7 @@ Notifications.propTypes = {
 };
 
 Notifications.defaultProps = {
-  listNotifications: [],
+  listNotifications: Map(),
   displayDrawer: false,
   handleDisplayDrawer: () => {},
   handleHideDrawer: () => {},
@@ -138,7 +137,7 @@ Notifications.defaultProps = {
 };
 
 const mapStateToProps = (state) => ({
-  listNotifications: state.notifications.get('notifications').toArray(),
+  listNotifications: state.notifications.get('notifications'),
 });
 
 const mapDispatchToProps = {

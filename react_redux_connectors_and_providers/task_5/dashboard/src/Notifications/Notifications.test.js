@@ -10,6 +10,7 @@ describe('Notifications', () => {
   const mockHandleDisplayDrawer = jest.fn();
   const mockHandleHideDrawer = jest.fn();
   const mockMarkNotificationAsRead = jest.fn();
+  const mockFetchNotifications = jest.fn();
 
   beforeEach(() => {
     StyleSheetTestUtils.suppressStyleInjection();
@@ -19,6 +20,7 @@ describe('Notifications', () => {
           handleDisplayDrawer={mockHandleDisplayDrawer}
           handleHideDrawer={mockHandleHideDrawer}
           markNotificationAsRead={mockMarkNotificationAsRead}
+          fetchNotifications={mockFetchNotifications}
         />
       );
     });
@@ -36,7 +38,7 @@ describe('Notifications', () => {
 
   it('renders correctly if listNotifications is empty', () => {
     act(() => {
-      wrapper.setProps({ listNotifications: [] });
+      wrapper.setProps({ listNotifications: Map() });
     });
     wrapper.update();
     expect(wrapper.find(NotificationItem).length).toBe(0);
@@ -50,21 +52,23 @@ describe('Notifications', () => {
   });
 
   it('renders NotificationItem components correctly with data', () => {
-    const notifications = [
-      { id: 1, type: 'default', value: 'New course available' },
-      { id: 2, type: 'urgent', value: 'New resume available' }
-    ];
+    const notifications = fromJS({
+      '1': { id: 1, type: 'default', value: 'New course available' },
+      '2': { id: 2, type: 'urgent', value: 'New resume available' }
+    });
     act(() => {
       wrapper.setProps({ listNotifications: notifications });
     });
     wrapper.update();
-    expect(wrapper.find(NotificationItem).length).toEqual(notifications.length);
+    expect(wrapper.find(NotificationItem).length).toEqual(notifications.size);
     expect(wrapper.text()).not.toContain("No new notification for now");
     expect(wrapper.text()).toContain("Here is the list of notifications");
   });
 
   it('calls markNotificationAsRead when NotificationItem is clicked', () => {
-    const notifications = [{ id: 1, type: 'default', value: 'New course available' }];
+    const notifications = fromJS({
+      '1': { id: 1, type: 'default', value: 'New course available' }
+    });
     act(() => {
       wrapper.setProps({ listNotifications: notifications, markNotificationAsRead: mockMarkNotificationAsRead });
     });
@@ -94,10 +98,10 @@ describe('Notifications', () => {
   });
 
   it('does not rerender for the same list of notifications', () => {
-    const notifications = [
-      { id: 1, type: 'default', value: 'New course available' },
-      { id: 2, type: 'urgent', value: 'New resume available' }
-    ];
+    const notifications = fromJS({
+      '1': { id: 1, type: 'default', value: 'New course available' },
+      '2': { id: 2, type: 'urgent', value: 'New resume available' }
+    });
     act(() => {
       wrapper.setProps({ listNotifications: notifications });
     });
@@ -107,16 +111,22 @@ describe('Notifications', () => {
   });
 
   it('rerenders for a longer list of notifications', () => {
-    const initialNotifications = [{ id: 1, type: 'default', value: 'New course available' }];
-    const newNotifications = [
-      ...initialNotifications,
-      { id: 2, type: 'urgent', value: 'New resume available' }
-    ];
+    const initialNotifications = fromJS({
+      '1': { id: 1, type: 'default', value: 'New course available' }
+    });
+    const newNotifications = fromJS({
+      ...initialNotifications.toJS(),
+      '2': { id: 2, type: 'urgent', value: 'New resume available' }
+    });
     act(() => {
       wrapper.setProps({ listNotifications: initialNotifications });
     });
     wrapper.update();
     const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications: newNotifications }, wrapper.state());
     expect(shouldUpdate).toBe(true);
+  });
+
+  it('calls fetchNotifications when component is mounted', () => {
+    expect(mockFetchNotifications).toHaveBeenCalled();
   });
 });
