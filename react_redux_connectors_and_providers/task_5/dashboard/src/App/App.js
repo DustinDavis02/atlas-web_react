@@ -34,15 +34,9 @@ class App extends React.Component {
         { id: 1, name: 'ES6', credit: 60 },
         { id: 2, name: 'Webpack', credit: 20 },
         { id: 3, name: 'React', credit: 40 }
-      ],
-      listNotifications: [
-        { id: 1, type: 'default', value: 'New course available' },
-        { id: 2, type: 'urgent', value: 'New resume available' },
-        { id: 3, type: 'urgent', html: { __html: '<strong>Project deadline</strong> approaching' } }
       ]
     };
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
   }
 
   handleKeyDown(event) {
@@ -51,14 +45,6 @@ class App extends React.Component {
       alert('Logging you out');
       this.props.logout();
     }
-  }
-
-  markNotificationAsRead(id) {
-    this.setState({
-      listNotifications: this.state.listNotifications.filter(
-        notification => notification.id !== id
-      )
-    });
   }
 
   componentDidMount() {
@@ -70,18 +56,16 @@ class App extends React.Component {
   }
 
   render() {
-    const { user, listCourses, listNotifications } = this.state;
+    const { user, listCourses } = this.state;
     const { displayDrawer, displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout } = this.props;
 
     return (
       <AppContext.Provider value={{ user, logOut: logout }}>
         <div className={css(styles.app)}>
           <Notifications 
-            listNotifications={listNotifications} 
             displayDrawer={displayDrawer}
             handleDisplayDrawer={displayNotificationDrawer}
             handleHideDrawer={hideNotificationDrawer}
-            markNotificationAsRead={this.markNotificationAsRead}
           />
           <Header />
           {user.isLoggedIn ? (
