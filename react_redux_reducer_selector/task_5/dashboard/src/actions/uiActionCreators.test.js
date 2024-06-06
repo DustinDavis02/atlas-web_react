@@ -21,7 +21,6 @@ import {
 global.fetch = fetch;
 
 const middlewares = [thunk];
-
 const mockStore = configureMockStore(middlewares);
 
 describe('uiActionCreators', () => {

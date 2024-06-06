@@ -26,13 +26,13 @@ describe('courseReducer', () => {
 
   it('should handle SELECT_COURSE and update the correct course', () => {
     const initialState = Map({
-      '1': { id: 1, name: "ES6", credit: 60, isSelected: false },
-      '2': { id: 2, name: "Webpack", credit: 20, isSelected: false },
-      '3': { id: 3, name: "React", credit: 40, isSelected: false }
+      '1': Map({ id: 1, name: "ES6", credit: 60, isSelected: false }),
+      '2': Map({ id: 2, name: "Webpack", credit: 20, isSelected: false }),
+      '3': Map({ id: 3, name: "React", credit: 40, isSelected: false })
     });
     const action = {
       type: SELECT_COURSE,
-      index: 2
+      index: '2'
     };
     const expectedState = {
       '1': { id: 1, name: "ES6", credit: 60, isSelected: false },
@@ -44,13 +44,13 @@ describe('courseReducer', () => {
 
   it('should handle UNSELECT_COURSE and update the correct course', () => {
     const initialState = Map({
-      '1': { id: 1, name: "ES6", credit: 60, isSelected: false },
-      '2': { id: 2, name: "Webpack", credit: 20, isSelected: true },
-      '3': { id: 3, name: "React", credit: 40, isSelected: false }
+      '1': Map({ id: 1, name: "ES6", credit: 60, isSelected: false }),
+      '2': Map({ id: 2, name: "Webpack", credit: 20, isSelected: true }),
+      '3': Map({ id: 3, name: "React", credit: 40, isSelected: false })
     });
     const action = {
       type: UNSELECT_COURSE,
-      index: 2
+      index: '2'
     };
     const expectedState = {
       '1': { id: 1, name: "ES6", credit: 60, isSelected: false },

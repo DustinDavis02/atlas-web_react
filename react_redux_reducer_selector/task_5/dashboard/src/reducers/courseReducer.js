@@ -10,13 +10,13 @@ const courseReducer = (state = initialState, action) => {
       const normalizedData = coursesNormalizer(action.data);
       let newState = state;
       Object.values(normalizedData.entities.courses).forEach(course => {
-        newState = newState.set(course.id, Map({ ...course, isSelected: false }));
+        newState = newState.set(course.id.toString(), Map({ ...course, isSelected: false }));
       });
       return newState;
     case SELECT_COURSE:
-      return state.setIn([action.index, 'isSelected'], true);
+      return state.setIn([action.index.toString(), 'isSelected'], true);
     case UNSELECT_COURSE:
-      return state.setIn([action.index, 'isSelected'], false);
+      return state.setIn([action.index.toString(), 'isSelected'], false);
     default:
       return state;
   }

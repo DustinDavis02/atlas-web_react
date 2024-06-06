@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { StyleSheetTestUtils } from 'aphrodite';
 import BodySectionWithMarginBottom from './BodySectionWithMarginBottom';
 import BodySection from './BodySection';
+import { StyleSheet, css } from 'aphrodite';
 
 describe('BodySectionWithMarginBottom', () => {
   beforeEach(() => {
@@ -27,6 +28,8 @@ describe('BodySectionWithMarginBottom', () => {
     expect(bodySection.props().children.type).toEqual('p');
     expect(bodySection.props().children.props.children).toEqual('test child');
 
-    expect(wrapper.find('div').hasClass(/css-/)).toBe(true);
+    const div = wrapper.find('div').first();
+    const className = div.prop('className');
+    expect(className).toContain(css(StyleSheet.create({ margin: { marginBottom: '40px' } }).margin));
   });
 });

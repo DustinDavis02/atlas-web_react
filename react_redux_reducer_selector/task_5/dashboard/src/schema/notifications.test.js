@@ -6,7 +6,7 @@ describe('getAllNotificationsByUser', () => {
     const expectedData = [
       {
         guid: "2d8e40be-1c78-4de0-afc9-fcc147afd4d2",
-        isRead: false,
+        isRead: true,
         type: "urgent",
         value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
       },

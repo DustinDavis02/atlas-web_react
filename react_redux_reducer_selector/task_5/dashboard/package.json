@@ -61,6 +61,6 @@
     "node-fetch": "^3.3.2",
     "normalizr": "^3.6.2",
     "prop-types": "^15.8.1",
-    "reselect": "^5.1.0"
+    "reselect": "^5.1.1"
   }
 }

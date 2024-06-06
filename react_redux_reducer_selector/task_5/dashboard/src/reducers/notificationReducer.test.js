@@ -23,11 +23,11 @@ describe('notificationReducer', () => {
     };
     const expectedState = {
       filter: NotificationTypeFilters.DEFAULT,
-      notifications: {
-        '1': { id: 1, type: 'default', value: 'New course available', isRead: false },
-        '2': { id: 2, type: 'urgent', value: 'New resume available', isRead: false },
-        '3': { id: 3, type: 'urgent', value: 'New data available', isRead: false }
-      },
+      notifications: Map({
+        '1': Map({ id: 1, type: 'default', value: 'New course available', isRead: false }),
+        '2': Map({ id: 2, type: 'urgent', value: 'New resume available', isRead: false }),
+        '3': Map({ id: 3, type: 'urgent', value: 'New data available', isRead: false })
+      }).toJS()
     };
     expect(notificationReducer(undefined, action).toJS()).toEqual(expectedState);
   });
@@ -36,9 +36,9 @@ describe('notificationReducer', () => {
     const initialState = Map({
       filter: NotificationTypeFilters.DEFAULT,
       notifications: Map({
-        '1': { id: 1, type: 'default', value: 'New course available', isRead: false },
-        '2': { id: 2, type: 'urgent', value: 'New resume available', isRead: false },
-        '3': { id: 3, type: 'urgent', value: 'New data available', isRead: false }
+        '1': Map({ id: 1, type: 'default', value: 'New course available', isRead: false }),
+        '2': Map({ id: 2, type: 'urgent', value: 'New resume available', isRead: false }),
+        '3': Map({ id: 3, type: 'urgent', value: 'New data available', isRead: false })
       }),
     });
     const action = {
@@ -47,11 +47,11 @@ describe('notificationReducer', () => {
     };
     const expectedState = {
       filter: NotificationTypeFilters.DEFAULT,
-      notifications: {
-        '1': { id: 1, type: 'default', value: 'New course available', isRead: false },
-        '2': { id: 2, type: 'urgent', value: 'New resume available', isRead: true },
-        '3': { id: 3, type: 'urgent', value: 'New data available', isRead: false }
-      },
+      notifications: Map({
+        '1': Map({ id: 1, type: 'default', value: 'New course available', isRead: false }),
+        '2': Map({ id: 2, type: 'urgent', value: 'New resume available', isRead: true }),
+        '3': Map({ id: 3, type: 'urgent', value: 'New data available', isRead: false })
+      }).toJS()
     };
     expect(notificationReducer(initialState, action).toJS()).toEqual(expectedState);
   });
@@ -63,7 +63,7 @@ describe('notificationReducer', () => {
     };
     const expectedState = {
       filter: NotificationTypeFilters.URGENT,
-      notifications: {},
+      notifications: Map().toJS(),
     };
     expect(notificationReducer(undefined, action).toJS()).toEqual(expectedState);
   });

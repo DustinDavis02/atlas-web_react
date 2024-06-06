@@ -17,7 +17,7 @@ const notificationReducer = (state = initialState, action) => {
       });
       return state.set('notifications', newNotifications);
     case MARK_AS_READ:
-      return state.setIn(['notifications', action.index, 'isRead'], true);
+      return state.setIn(['notifications', action.index.toString(), 'isRead'], true);
     case SET_TYPE_FILTER:
       return state.set('filter', action.filter);
     default:
